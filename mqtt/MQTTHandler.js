@@ -1,9 +1,9 @@
-const mqtt = require("mqtt");
+const mqtt = require('mqtt');
 
-let JSONFileHandler = require("../utils/json-file-handler");
+let JSONFileHandler = require('../utils/json-file-handler');
 
 JSONFileHandler = new JSONFileHandler(
-  "/home/karlos/Documentos/TalkingPepper/talking-pepper-api/storage/last-plants-data.json"
+  '/home/karlos/Documentos/TalkingPepper/talking-pepper-api/storage/last-plants-data.json'
 );
 
 class MqttHandler {
@@ -24,13 +24,13 @@ class MqttHandler {
     });
 
     // Mqtt error calback
-    this.mqttClient.on("error", err => {
+    this.mqttClient.on('error', err => {
       console.log(err);
       this.mqttClient.end();
     });
 
     // Connection callback
-    this.mqttClient.on("connect", () => {
+    this.mqttClient.on('connect', () => {
       console.log(`mqtt client connected`);
     });
 
@@ -38,16 +38,16 @@ class MqttHandler {
     this.mqttClient.subscribe(this.topic, { qos: 0 });
 
     // When a message arrives, console.log it
-    this.mqttClient.on("message", (topic, message) => {
+    this.mqttClient.on('message', (topic, message) => {
       JSONFileHandler.replace(message.toString());
 
-      console.log("MQTT message from the topic: " + topic);
-      console.log("Data received: " + message);
+      console.log('MQTT message from the topic: ' + topic);
+      console.log('Data received: ' + message);
 
       this.mqttClient.end();
     });
 
-    this.mqttClient.on("close", () => {});
+    this.mqttClient.on('close', () => console.log('mqtt cliente disconnected'));
 
     // return data;
   }

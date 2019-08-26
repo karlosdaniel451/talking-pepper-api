@@ -1,4 +1,4 @@
-const fs = require("fs");
+const fs = require('fs');
 
 class JSONFileHandler {
   constructor(filePath) {
@@ -6,25 +6,15 @@ class JSONFileHandler {
   }
 
   getData() {
-    let data;
-
-    fs.readFile(this.filePath, "utf8", (err, jsonString) => {
-      if (err) {
-        console.log("File read failed:", err);
-        return;
-      }
-      data = jsonString;
-    });
-
-    return data;
+    return JSON.parse(fs.readFileSync(this.filePath, 'utf8'));
   }
 
   replace(newData) {
     fs.writeFile(this.filePath, newData, err => {
       if (err) {
-        console.log("Error writing file", err);
+        console.log('Error writing file', err);
       } else {
-        console.log("Successfully wrote file");
+        console.log('Successfully wrote file');
       }
     });
   }

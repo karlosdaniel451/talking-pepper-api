@@ -1,8 +1,8 @@
-const express = require("express");
-const bodyParser = require("body-parser");
+const express = require('express');
+const bodyParser = require('body-parser');
 
-const MQTTHandler = require("./mqtt/MQTTHandler");
-let JSONFileHandler = require("./utils/json-file-handler");
+const MQTTHandler = require('./mqtt/MQTTHandler');
+let JSONFileHandler = require('./utils/json-file-handler');
 
 const app = express();
 
@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const port = process.argv[2];
 
-JSONFileHandler = new JSONFileHandler("./storage/last-plants-data.json");
+JSONFileHandler = new JSONFileHandler('./storage/last-plants-data.json');
 
 let mqttHandlerPlant1 = new MQTTHandler(
   process.argv[3],
@@ -20,33 +20,30 @@ let mqttHandlerPlant1 = new MQTTHandler(
   process.argv[6]
 );
 
-let lastPlantsData = "teset";
-
 setInterval(() => {
   mqttHandlerPlant1.connect();
-  lastPlantsData = JSONFileHandler.getData();
 }, process.argv[7]);
 
-app.get("/", (req, res) => {
+app.get('/', (req, res) => {
   res.json({
-    message: "OK"
+    message: 'OK'
   });
 });
 
-app.get("/plants/", (req, res) => {});
+app.get('/plants/', (req, res) => {});
 
-app.get("/plants/data/", (req, res) => {
-  res.json(lastPlantsData);
+app.get('/plants/data/', (req, res) => {
+  res.json(JSONFileHandler.getData());
 
-  console.log("Request from " + req.ip);
+  console.log('Request from ' + req.ip);
 });
 
-app.post("/plants/send/", (req, res) => {
+app.post('/plants/send/', (req, res) => {
   res.json({
-    message: "OK"
+    message: 'OK'
   });
 
-  console.log("Request from " + req.ip);
+  console.log('Request from ' + req.ip);
 });
 
-app.listen(port, () => console.log("Server is runing at " + port));
+app.listen(port, () => console.log('Server is runing at ' + port));
