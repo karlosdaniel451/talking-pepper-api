@@ -1,0 +1,16 @@
+[
+  {
+    "plant_name": "Pimenteira 1",
+    "type": "HIGH_AIR_TEMPERATURE",
+    "value": 32,
+    "message": "A temperatura está muito alta!",
+    "time": "20:12"
+  },
+  {
+    "plant_name": "Pimenteira 2",
+    "type": "HIGH_AIR_TEMPERATURE",
+    "value": 32,
+    "message": "A temperatura está muito alta!",
+    "time": "20:13"
+  }
+]
